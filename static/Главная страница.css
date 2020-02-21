@@ -9,19 +9,27 @@ td>h2 {
 	color: white;
 }
 
-.div-background {
-	background-color: #191a1e;
+table {
+	width: 100%;
+
 }
 
-.size {
-	width: 100vw;
+.div-background {
+	background-color: #adb9ca;
+}
+
+table {
+	margin-bottom: -16px;
 	margin-top: -10px;
+	/*margin-left: -8px;*/
+	margin-right: -10px;
 }
 
 div {
-	width: 100vw;
-  	height: 120vh;
-  	margin-top: -10px;
+	margin-bottom: -16px;
+	margin-top: -10px;
+	/*margin-left: -8px;*/
+	height: 100%;
 }
 
 h2, p {
@@ -42,7 +50,6 @@ a {
 	font-size: 130%;
 }
 
-
-.radius {
-	border-radius: 100px;
+#pad {
+	margin-left: -8px;
 }
