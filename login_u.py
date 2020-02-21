@@ -42,4 +42,3 @@ def add_user(name, email, password):
     session.add(user)
     session.commit()
     session.close()
-
