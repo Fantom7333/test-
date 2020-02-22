@@ -11,5 +11,15 @@ def index():
         except:
             name = request.form["Регистрация"]
         print(name)
+        return redirect('/authorization/' + name)
     return render_template("Главная страница.html")
+
+
+@app.route('/authorization/<form>', methods=['GET', 'POST'])
+def authorize(form):
+    if form == 'вход':
+        return render_template('Форма входа.html')
+    elif form == 'регистрация':
+        return render_template('Форма регистрации.html')
+
 app.run(debug=True)
