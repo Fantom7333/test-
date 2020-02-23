@@ -28,9 +28,6 @@ h2, p {
 font-family: Tahoma;
 }
 
-.margin {
-margin-right: 90px;
-}
 
 u {
 margin-left: 120px;
@@ -56,4 +53,8 @@ border-radius: 10px;
 
 button:hover {
 background: #000000;
+}
+
+.margin {
+    margin-left: 10%;
 }
