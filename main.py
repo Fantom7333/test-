@@ -37,7 +37,7 @@ def authorize(form):
             password_check = request.form['password_check']
             if password == password_check:
                 add_user(login=login, email=email, password=password)
-                return redirect('/')
+                return redirect('/authorization/вход')
             else:
                 return render_template("Форма регистрации.html", text="Пароли не совпадают")
     return render_template('Форма регистрации.html')
