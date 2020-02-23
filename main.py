@@ -28,7 +28,6 @@ def authorize(form):
                 return "Вы вошли"
             else:
                 return "Пароль неверный"
-
         return render_template('Форма входа.html')
     elif form == 'регистрация':
         if request.method == 'POST':
