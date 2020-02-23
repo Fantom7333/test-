@@ -12,7 +12,7 @@ class Abstract:
 
 class User(Abstract, Base):
     __tablename__ = 'users'
-    username = Column(String(50), nullable=False, unique=True)
+    login = Column(String(50), nullable=False, unique=True)
     email = Column(String(254), nullable=False, unique=True)
     password = Column(String(20), nullable=False)
 
@@ -35,11 +35,17 @@ class Task(Abstract, Base):
 
 Base.metadata.create_all()
 
-def add_user(name, email, password):
+def add_user(login, email, password):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)
-    user = User(username=name, email=email, password=password)
+    user = User(login=login, email=email, password=password)
     session.add(user)
     session.commit()
     session.close()
 
+def request_user(login):
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+    password_valid = session.query(User.password).filter(User.login == login).first()
+    session.close()
+    return password_valid
