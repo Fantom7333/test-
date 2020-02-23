@@ -22,3 +22,11 @@ input {
 .color:hover {
 	background: #6d6f70;
 }
+
+.block {
+display: inline-block;
+}
+
+input,label {
+display: block;
+}
