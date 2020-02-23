@@ -22,4 +22,5 @@ def authorize(form):
     elif form == 'регистрация':
         return render_template('Форма регистрации.html')
 
+
 app.run(debug=True)

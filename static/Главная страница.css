@@ -1,54 +1,59 @@
 .header {
-	position: fixed;
-	z-index: 1000;
-	top: 150px;
+position: fixed;
+z-index: 1000;
+top: 150px;
 }
 
 td>h2 {
-	font-family: Tahoma;
-	color: white;
-}
-
-table {
-	width: 100%;
+font-family: Tahoma;
+color: white;
 }
 
 .div-background {
-	background-color: #adb9ca;
+background-color: #191a1e;
 }
 
-table {
-	margin-bottom: -16px;
-	margin-top: -10px;
-	/*margin-left: -8px;*/
-	margin-right: -10px;
+.size {
+width: 100vw;
+margin-top: -10px;
 }
 
 div {
-	margin-bottom: -16px;
-	margin-top: -10px;
-	/*margin-left: -8px;*/
-	height: 100%;
+width: 100vw;
+height: 120vh;
+margin-top: -10px;
 }
 
 h2, p {
-	font-family: Tahoma;
+font-family: Tahoma;
 }
 
 .margin {
-	margin-right: 90px;
+margin-right: 90px;
 }
 
 u {
-	margin-left: 120px;
+margin-left: 120px;
 }
 
 a {
-	font-family: Tahoma;
-	color: #000000;
-	font-size: 130%;
+font-family: Tahoma;
+color: #000000;
+font-size: 130%;
 }
 
-#pad {
-	margin-left: -8px;
+
+.radius {
+border-radius: 100px;
+}
+
+button {
+background: #a8e13c;
+width: 87px;
+color: blue;
+border-radius: 10px;
+}
+
+button:hover {
+background: #000000;
 }

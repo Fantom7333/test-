@@ -38,7 +38,7 @@ Base.metadata.create_all()
 def add_user(name, email, password):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)
-    user = User(username=name , email=email , password=password)
+    user = User(username=name, email=email, password=password)
     session.add(user)
     session.commit()
     session.close()
