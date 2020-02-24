@@ -51,10 +51,16 @@ def authorize(form):
 @app.route('/home/<login>', methods=['GET', 'POST'])
 def home_login(login):
     if request.method == "POST":
-        action = request.form['Выйти']
+        try:
+            action = request.form['Выйти']
+        except:
+            action = request.form['Курс']
+
         if action == 'выход':
             change_entry(action, login)
             return redirect('/home')
+        elif action == 'курс':
+            return render_template('урок.html')
     avatar = request_user(login)[1]
     return render_template('Главная страница вход.html', path = avatar)
 
