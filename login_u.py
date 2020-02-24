@@ -1,9 +1,14 @@
-from sqlalchemy import Column, Integer, String, Boolean, Text, Date, ForeignKey, create_engine
-from sqlalchemy.orm import relationship, Session
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, create_engine
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship, Session
 
 engine = create_engine('sqlite:///info_data_base.db', echo=True)
 Base = declarative_base(bind=engine)
+
+
+class EntryCheck(Base):
+    __tablename__ = 'check_entry'
+    check = Column(Integer, default=0, nullable=False)
 
 
 class User(Base):
@@ -31,7 +36,9 @@ class Progress(Base):
     def __str__(self):
         return ' | '.join([self.id, self.user_id, self.total_tasks_completed, self.score])
 
+
 Base.metadata.create_all()
+
 
 def add_user(login, email, password):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
@@ -41,6 +48,7 @@ def add_user(login, email, password):
     session.commit()
     session.close()
 
+
 def request_user(login):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)
@@ -48,3 +56,26 @@ def request_user(login):
     avatar = session.query(User.avatar).filter(User.login == login).first()[0]
     session.close()
     return password_valid, avatar, login
+
+
+def request_entry():
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+    check = session.query(EntryCheck.check).first()[0]
+    session.close()
+    return check
+
+
+def change_entry(oz):
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+    check = session.query(EntryCheck.check).first()[0]
+    if oz == 'войти':
+        check = 1
+    else:
+        check = 0
+    session.commit()
+    session.close()
+
+
+
