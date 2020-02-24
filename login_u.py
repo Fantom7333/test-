@@ -8,8 +8,17 @@ Base = declarative_base(bind=engine)
 
 class EntryCheck(Base):
     __tablename__ = 'check_entry'
+    id = Column(Integer, primary_key=True)
     check = Column(Integer, default=0, nullable=False)
+    def __str__(self):
+        return self.check
 
+class Login(Base):
+    __tablename__ = 'login'
+    id = Column(Integer, primary_key=True)
+    login = Column(String(50), nullable=False, unique=True)
+    def __str__(self):
+        return self.login
 
 class User(Base):
     __tablename__ = 'users'
@@ -62,6 +71,7 @@ def request_entry():
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)
     check = session.query(EntryCheck.check).first()[0]
+    print(check)
     session.close()
     return check
 
@@ -70,12 +80,40 @@ def change_entry(oz):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)
     check = session.query(EntryCheck.check).first()[0]
-    if oz == 'войти':
+    if oz == "вход":
         check = 1
-    else:
+        session.commit()
+    elif oz == "выход":
         check = 0
-    session.commit()
+        session.commit()
     session.close()
 
 
+def set_auth_attr(login):
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+    user_login = session.query(Login.login).first()[0]
+    user_login = login
+    session.commit()
+    session.close()
 
+def get_login():
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+    user_login = session.query(Login.login).first()[0]
+    session.close()
+    return user_login
+
+
+# РАСКОММЕНТИТЬ И ЗАПУСТИТЬ, КОГДА УДАЛЯЕТЕ БАЗУ ДАННЫХ
+# session = Session(bind=engine)
+# check = EntryCheck(check=0)
+# session.add(check)
+# session.commit()
+# session.close()
+#
+# session = Session(bind=engine)
+# login = Login(login="AYE88")
+# session.add(login)
+# session.commit()
+# session.close()
