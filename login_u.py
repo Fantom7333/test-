@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship, Session
 engine = create_engine('sqlite:///info_data_base.db', echo=True)
 Base = declarative_base(bind=engine)
 
+
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
@@ -12,7 +13,7 @@ class User(Base):
     email = Column(String(254), nullable=False, unique=True)
     password = Column(String(20), nullable=False)
     avatar = Column(String, default='peppa.png', nullable=False)
-    login_act = Column(Integer, default=0, nullable=False )
+    login_act = Column(Integer, default=0, nullable=False)
     progress = relationship("Progress", cascade="all, delete-orphan")
 
     def __str__(self):
@@ -28,6 +29,7 @@ class Progress(Base):
     course_name = Column(Text(100), nullable=False, unique=True)
     total_tasks = Column(Integer, nullable=False)
     owner = relationship(User)
+
     def __str__(self):
         return ' | '.join([self.id, self.user_id, self.total_tasks_completed, self.score])
 
@@ -73,4 +75,3 @@ def change_entry(oz, login):
         check = 0
         session.commit()
     session.close()
-
