@@ -46,7 +46,7 @@ def authorize(form):
                 return redirect('/authorization/вход')
             else:
                 return render_template("Форма регистрации.html", text="Пароли не совпадают")
-
+    return render_template("Форма регистрации.html")
 
 @app.route('/home/<login>', methods=['GET', 'POST'])
 def home_login(login):
