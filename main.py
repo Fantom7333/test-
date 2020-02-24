@@ -24,8 +24,9 @@ def authorize(form):
             login = request.form['login']
             password = request.form['password']
             password_valid = request_user(login)[0]
+            avatar = request_user(login)[1]
             if password == password_valid:
-                return render_template('Главная страница вход.html', path="peppa.png" )
+                return render_template('Главная страница вход.html', path=avatar )
             else:
                 return "Пароль неверный"
         return render_template('Форма входа.html')

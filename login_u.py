@@ -1,4 +1,3 @@
-from datetime import date
 from sqlalchemy import Column, Integer, String, Boolean, Text, Date, ForeignKey, create_engine
 from sqlalchemy.orm import relationship, Session
 from sqlalchemy.ext.declarative import declarative_base
@@ -13,6 +12,7 @@ class User(Base):
     login = Column(String(50), nullable=False, unique=True)
     email = Column(String(254), nullable=False, unique=True)
     password = Column(String(20), nullable=False)
+    avatar = Column(String, default='peppa.png', nullable=False)
     progress = relationship("Progress", cascade="all, delete-orphan")
 
     def __str__(self):
@@ -24,7 +24,7 @@ class Progress(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     total_tasks_completed = Column(Integer, nullable=False)
-    score = Column(Integer(1))
+    score = Column(Integer)
     course_name = Column(Text(100), nullable=False, unique=True)
     total_tasks = Column(Integer, nullable=False)
 
@@ -44,6 +44,7 @@ def add_user(login, email, password):
 def request_user(login):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)
-    password_valid = session.query(User.password).filter(User.login == login).first()
+    password_valid = session.query(User.password).filter(User.login == login).first()[0]
+    avatar = session.query(User.avatar).filter(User.login == login).first()[0]
     session.close()
-    return password_valid
+    return password_valid, avatar, login
