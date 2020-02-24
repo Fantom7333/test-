@@ -1,29 +1,25 @@
 from flask import Flask, render_template, request, redirect, url_for
-from login_u import add_user, request_user, request_entry, change_entry, set_auth_attr, get_login
-
+from login_u import add_user, request_user, request_entry, change_entry
 
 app = Flask(__name__, template_folder="templates")
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    oz = request_entry()
-    if oz == 0:
-        if request.method == 'POST':
-            try:
-                name = request.form["Войти"]
-            except:
-                name = request.form["Регистрация"]
-            print(name)
-            return redirect('/authorization/' + name)
-        return render_template("Главная страница.html")
-    else:
-        if request.method == 'POST':
-            name = request.form['Выйти']
-            change_entry(name)
-            render_template("Главная страница.html")
-        avatar = request_user(get_login())[1]
-        return render_template("Главная страница вход.html", path = avatar)
+        return redirect('/home')
+
+
+@app.route('/home', methods = ['GET', 'POST'])
+def home():
+    if request.method == 'POST':
+        try:
+            name = request.form["Войти"]
+        except:
+            name = request.form["Регистрация"]
+        print(name)
+        return redirect('/authorization/' + name)
+    return render_template("Главная страница.html")
+
 
 @app.route('/authorization/<form>', methods=['GET', 'POST'])
 def authorize(form):
@@ -32,11 +28,10 @@ def authorize(form):
             login = request.form['login']
             password = request.form['password']
             password_valid = request_user(login)[0]
+            print(password_valid)
             if password == password_valid:
-                change_entry(form)
-                set_auth_attr(login=login)
-                print(request_entry())
-                return redirect('/')
+                change_entry(form, login=login)
+                return redirect('/home/' + login)
             else:
                 return "Пароль неверный"
         return render_template('Форма входа.html')
@@ -51,5 +46,16 @@ def authorize(form):
                 return redirect('/authorization/вход')
             else:
                 return render_template("Форма регистрации.html", text="Пароли не совпадают")
-    return render_template('Форма регистрации.html')
+    return render_template("Форма регистрации.html")
+
+@app.route('/home/<login>', methods=['GET', 'POST'])
+def home_login(login):
+    if request.method == "POST":
+        action = request.form['Выйти']
+        if action == 'выход':
+            change_entry(action, login)
+            return redirect('/home')
+    avatar = request_user(login)[1]
+    return render_template('Главная страница вход.html', path = avatar)
+
 app.run(debug=True)
