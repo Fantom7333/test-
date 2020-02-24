@@ -6,10 +6,10 @@ app = Flask(__name__, template_folder="templates")
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-        return redirect('/home')
+    return redirect('/home')
 
 
-@app.route('/home', methods = ['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
         try:
@@ -48,6 +48,7 @@ def authorize(form):
                 return render_template("Форма регистрации.html", text="Пароли не совпадают")
     return render_template("Форма регистрации.html")
 
+
 @app.route('/home/<login>', methods=['GET', 'POST'])
 def home_login(login):
     if request.method == "POST":
@@ -56,6 +57,7 @@ def home_login(login):
             change_entry(action, login)
             return redirect('/home')
     avatar = request_user(login)[1]
-    return render_template('Главная страница вход.html', path = avatar)
+    return render_template('Главная страница вход.html', path=avatar)
+
 
 app.run(debug=True)
