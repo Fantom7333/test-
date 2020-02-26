@@ -64,6 +64,8 @@ def request_entry(login):
     return check
 
 
+
+#При входе заносит 1 в поле login_act записи пользователя по его нику, при выходе 0. Позволяет отслеживать онлайн.
 def change_entry(oz, login):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)

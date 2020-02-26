@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from login_u import add_user, request_user, request_entry, change_entry
 
 app = Flask(__name__, template_folder="templates")
-
+app.secret_key = '777aye777khabss'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -31,6 +31,7 @@ def authorize(form):
             print(password_valid)
             if password == password_valid:
                 change_entry(form, login=login)
+                session['login'] = login
                 return redirect('/home/' + login)
             else:
                 return "Пароль неверный"
@@ -51,7 +52,14 @@ def authorize(form):
 
 @app.route('/home/<login>', methods=['GET', 'POST'])
 def home_login(login):
-    avatar = request_user(login)[1]
+    if session.get('login') != None:
+        if session['login'] == login:
+            avatar = request_user(login)[1]
+        else:
+            return redirect(url_for('home_login', login=session['login']))
+    else:
+        return redirect(url_for('authorize', form='вход'))
+
     if request.method == "POST":
         try:
             action = request.form['Выйти']
@@ -63,6 +71,7 @@ def home_login(login):
             return redirect('/home')
         elif action == 'курс':
             return render_template('урок.html', path=avatar)
+
     return render_template('Главная страница вход.html', path=avatar)
 
 
