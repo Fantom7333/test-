@@ -60,22 +60,22 @@ def authorize(form):
 #Открытие курса.
 @app.route('/courses/<course>', methods=['GET', 'POST'])
 def courses(course):
-    login = session.get('login')
     if request.method == "POST":
         act = []
         act.append(request.form.get('Выйти'))
         action = list(filter(lambda x: x, act))[0]
         if action == 'выход':
             print(action)
+            login = session.get('login')
             change_entry(action, login)
             session.pop('login', None)
             return redirect('/home')
+    login = session.get('login')
     if login != None:
         avatar = request_user_avatar(login)
-        return render_template(course+'.html', path=avatar)
+        return render_template(course + '.html', path=avatar)
     else:
         return redirect(url_for('authorize', form='вход'))
-
 
 #Главная страница с курсами, адаптированная для конкретного пользователя(аватарка, прогресс, личный кабинет)
 @app.route('/home/<login>', methods=['GET', 'POST'])
@@ -92,6 +92,7 @@ def home_login(login):
         act = []
         act.append(request.form.get('python'))
         act.append(request.form.get('Выйти'))
+        print(act)
         action = list(filter(lambda x: x, act))[0]
         if action == 'выход':
             change_entry(action, login)
