@@ -1,10 +1,20 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, Session
+from sqlalchemy.exc import IntegrityError
 
 engine = create_engine('sqlite:///info_data_base.db', echo=True)
 Base = declarative_base(bind=engine)
 
+class AccountExists(Exception):
+    '''
+    Authentification pair already in db
+    '''
+
+class AccountNotFound(Exception):
+    '''
+    Authentification pair not found in db
+    '''
 
 class User(Base):
     __tablename__ = 'users'
@@ -28,6 +38,7 @@ class Progress(Base):
     score = Column(Integer)
     course_name = Column(Text(100), nullable=False, unique=True)
     total_tasks = Column(Integer, nullable=False)
+    last_course_point = Column(Integer, nullable=False)
     owner = relationship(User)
 
     def __str__(self):
@@ -41,18 +52,29 @@ def add_user(login, email, password):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)
     user = User(login=login, email=email, password=password)
-    session.add(user)
-    session.commit()
-    session.close()
+    try:
+        session.add(user)
+        session.commit()
+    except IntegrityError:
+        raise AccountExists(Exception)
+    finally:
+        session.close()
 
-
-def request_user(login):
+def request_user(login, password):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)
-    password_valid = session.query(User.password).filter(User.login == login).first()[0]
+    user = session.query(User).filter_by(login=login, password=password).first()
+    session.close()
+    if not user:
+        raise AccountNotFound
+    return user.login
+
+def request_user_avatar(login):
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
     avatar = session.query(User.avatar).filter(User.login == login).first()[0]
     session.close()
-    return password_valid, avatar, login
+    return avatar
 
 
 def request_entry(login):
@@ -77,3 +99,17 @@ def change_entry(oz, login):
         check = 0
         session.commit()
     session.close()
+
+
+def get_user_tasks(login):
+    engine = create_engine('sqlite:///app.db', echo=True)
+    session = Session(bind=engine)
+    user = session.query(User).filter_by(login=login).first()
+    user_tasks = user.progress
+    session.close()
+    return user_tasks
+
+
+
+
+
