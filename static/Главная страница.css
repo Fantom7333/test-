@@ -13,8 +13,12 @@ color: white;
 background-color: #191a1e;
 }
 
+td.aye{
+padding-top:2.5%;
+}
 .size {
 width: 100vw;
+height:5vh;
 margin-top: -10px;
 }
 
@@ -28,6 +32,9 @@ h2, p {
 font-family: Tahoma;
 }
 
+.margin {
+margin-right: 25%;
+}
 
 u {
 margin-left: 120px;
@@ -38,7 +45,6 @@ font-family: Tahoma;
 color: #000000;
 font-size: 130%;
 }
-
 
 .radius {
 border-radius: 100px;
@@ -53,8 +59,4 @@ border-radius: 10px;
 
 button:hover {
 background: #000000;
-}
-
-.margin {
-    margin-left: 10%;
 }

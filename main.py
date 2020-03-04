@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from login_u import add_user, request_user, request_user_avatar, request_entry, change_entry
 from login_u import AccountNotFound, AccountExists
 app = Flask(__name__, template_folder="templates")
-app.secret_key = '777aye777khabss'
+app.secret_key = 'SS99PaRaDiSeScIeNcE'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -49,12 +49,11 @@ def authorize(form):
                 try:
                     add_user(login=login, email=email, password=password)
                 except AccountExists:
-                    return render_template('Форма регистрации.html', text='account_already_exist')
+                    return render_template('Форма регистрации.html', text='Аккаунт с такими данными уже существует')
                 return redirect('/authorization/вход')
             else:
                 return render_template("Форма регистрации.html", text="Пароли не совпадают")
     return render_template("Форма регистрации.html")
-
 
 
 #Открытие курса.
