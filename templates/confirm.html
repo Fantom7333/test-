@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forgot password</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='ФормаРегистрации.css') }}">
+</head>
+<body bgcolor="000000">
+<table border="0" align="center">
+    <tr>
+        <td width="33%">&nbsp;</td>
+        <td width="33%">
+            <div align="center" class="block">
+                <br/>
+                <br/>
+                <br/>
+                <form method="POST">
+                    <label for="code">Введите код подтверждения:</label>
+                    <input name="code" id="code" type="text" minlength="10" max="10">
+                    <label for ="password">Введите свой новый пароль:</label>
+                    <input id="password" name="password" type="password" minlength="6" maxlength="12">
+                    <br>
+                    <input name="confirm" type="submit" value="Confirm new password" class="color">
+                    <br>
+                    {% if error== 'Code not valid' %}
+                    <font color="red">Код подтверждения неверный, попробуйте снова</font>
+                    {% elif error== 'Old eq New' %}
+                    <font color="red">Новый пароль совпадает со старым. Введите другой</font>
+                    {% endif %}
+                </form>
+                <br/>
+                <a href="/"><font color="green">На главную</font></a>
+            </div>
+        </td>
+        <td width="33%">&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>
