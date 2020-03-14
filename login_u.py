@@ -150,6 +150,14 @@ def request_user(login):
         raise AccountNotFound
     return user.login, user.password
 
+def request_user_obj(login):
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+    user = session.query(User).filter_by(login=login).first()
+    session.close()
+    return user
+
+
 
 def request_user_login(email):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
@@ -193,10 +201,10 @@ def change_entry(oz, login):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)
     check = session.query(User.login_act).filter(User.login == login).first()[0]
-    if oz == "вход":
+    if oz == "log_in":
         check = 1
         session.commit()
-    elif oz == "выход":
+    elif oz == "log_out":
         check = 0
         session.commit()
     session.close()
@@ -416,9 +424,12 @@ def set_part_of_class(class_name, info, valid_id=0, test=False):
 # set_course("Python")
 # set_sections("Python", "Введение В Python3")
 # set_sections("Python", "ООП")
-# set_class("Введение В Python3", "Объекты")
+# set_sections("Python", "Basics")
+# # set_class("Введение В Python3", "Объекты")
 # set_class("Введение В Python3", "Типы данных")
-# set_class("ООП", "Введение в ООП")
+# # set_class("ООП", "Введение в ООП")
+# set_class("Basics", "Type of data")
+# set_class("Basics", "For test")
 # set_class("ООП", "Атрибуты")
 # set_part_of_class("Объекты", "Элментарная единица информации: Объект, Кластер, Переменная", test = True, valid_id=1)
 # set_part_of_class("Объекты", "Объекты в ЯП прикрепляются к переменным-ссылкам")
@@ -428,3 +439,5 @@ def set_part_of_class(class_name, info, valid_id=0, test=False):
 # set_part_of_class("Введение в ООП", "Полиморфизм - изменение свойств родительского класса в дочернем")
 # set_part_of_class("Атрибуты", "Выберите вариант ответа: Переменная, Класс, Список", test = True, valid_id=3)
 # set_part_of_class("Атрибуты", "Атрибуты - именованные свойства объекта")
+
+# add_user("AYE88", 'sss@mail.ru', "2281337")
