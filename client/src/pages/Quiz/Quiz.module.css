@@ -1,0 +1,61 @@
+.Quiz {
+    background-color: #000000;
+    background-image: linear-gradient(315deg, #000000 0%, #414141 74%);
+    color: #fff;
+    min-height: 1080px;
+}
+
+
+
+.courseBlocks_round {
+    padding: 20px;
+    text-align: center;
+    background-color: green;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    word-wrap: break-word;
+    margin: 0 auto;
+    margin-top: 5vh;
+}
+
+
+.courseBlocks_round a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.courseBlocks_round a:hover {
+    color: #fff;
+    /* text-decoration: none; */
+}
+
+
+
+.Quiz_wrapper_info {
+    text-align: center;
+    margin-top: 5vh;
+}
+
+.Quiz_wrapper_info h1 {
+    font-size: 55px;
+}
+
+
+
+.Quiz_wrapper_info img {
+    margin-top: 5vh;
+}
+
+.Quiz_wrapper_info p {
+    margin-top: 5vh;
+    font-size: 23px;
+}
+
+
+/* .Quiz_wrapper {
+    margin: 0 auto;
+} */

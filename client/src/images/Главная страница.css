@@ -1,0 +1,60 @@
+.header {
+position: fixed;
+z-index: 1000;
+top: 150px;
+}
+
+td>h2 {
+font-family: Tahoma;
+color: white;
+}
+
+.div-background {
+background-color: #191a1e;
+}
+
+.size {
+width: 100vw;
+margin-top: -10px;
+}
+
+div {
+width: 100vw;
+height: 120vh;
+margin-top: -10px;
+}
+
+h2, p {
+font-family: Tahoma;
+}
+
+
+u {
+margin-left: 120px;
+}
+
+a {
+font-family: Tahoma;
+color: #000000;
+font-size: 130%;
+}
+
+
+.radius {
+border-radius: 100px;
+}
+
+button {
+background: #a8e13c;
+width: 87px;
+color: blue;
+border-radius: 10px;
+}
+
+button:hover {
+background: #000000;
+}
+
+.margin {
+    margin-left: 10%;
+}
