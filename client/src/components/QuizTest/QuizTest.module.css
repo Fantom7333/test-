@@ -1,0 +1,26 @@
+.QuizTest {
+    margin: 5vh auto 0;
+    padding: 2vh 2vh;
+    max-width: 1200px;
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.QuizTest_exit {
+    font-size: 23px;
+    color: #fff;
+}
+
+.QuizTest_exit:hover {
+    color: red;
+}
+
+.QuizTest_rounds {
+    display: flex;
+    justify-content: center;
+}
+
+.QuizTest_controls {
+    display: flex;
+    justify-content: space-between;
+}

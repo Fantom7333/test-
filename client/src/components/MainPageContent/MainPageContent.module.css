@@ -1,0 +1,9 @@
+@import "../../variables.css";
+
+.MainPageContent {
+    position: absolute;
+    height: 100%;
+    width: 1200px;
+    background: var(--mainContent_bg) no-repeat;
+    
+}
