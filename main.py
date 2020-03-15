@@ -59,12 +59,9 @@ print('secret_key: ' + str(app.secret_key))
 
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    return redirect('/home')
 
 #Корневой каталог, используется для неавторизованного пользователя
-@app.route('/home', methods=['GET'])
+@app.route('/', methods=['GET'])
 def home():
     courses = get_courses()
     result = courses_m.dump(courses)
@@ -72,12 +69,12 @@ def home():
 
 
 
-@app.route('/home/<course>', methods=["GET"])
+@app.route('/<course>', methods=["GET"])
 def courses(course):
     try:
         sections = get_sections(course)
     except CourseNotFound:
-        return jsonify({'redirect': "/home"})
+        return jsonify({'redirect': "/"})
     result = sections_m.dump(sections)
     for i in result:
         i['section_name_display'] = for_display(i['section_name'])
@@ -86,14 +83,14 @@ def courses(course):
 
 
 
-@app.route('/home/<course>/<section>', methods=["GET"])
+@app.route('/<course>/<section>', methods=["GET"])
 def sections(course, section):
     try:
         classes = get_classes(course, section)
     except CourseNotFound:
-        return jsonify({'redirect': '/home'})
+        return jsonify({'redirect': '/'})
     except SectionNotFound:
-        return jsonify({'redirect': f'/home/{course}'})
+        return jsonify({'redirect': f'/{course}'})
     result = classes_m.dump(classes)
     for i in result:
         i['class_name_display'] = for_display(i['class_name'])
@@ -103,16 +100,16 @@ def sections(course, section):
 
 
 
-@app.route('/home/<course>/<section>/<class_name>', methods=["GET"])
+@app.route('/<course>/<section>/<class_name>', methods=["GET"])
 def classes(course, section, class_name):
         try:
             parts_of_class = get_parts_of_class(course, section, class_name=class_name)
         except CourseNotFound:
-            return jsonify({'redirect': '/home'})
+            return jsonify({'redirect': '/'})
         except SectionNotFound:
-            return jsonify({'redirect': f'/home/{course}'})
+            return jsonify({'redirect': f'/{course}'})
         except ClassNotFound:
-            return jsonify({'redirect': f'/home/{course}/{section}'})
+            return jsonify({'redirect': f'/{course}/{section}'})
         result = parts_of_class_m.dump(parts_of_class)
         for i in result:
             if i['test']:
@@ -154,7 +151,6 @@ def post(form):
             login = request.json['login']
             email = request.json['email']
             password = request.json['password']
-            password_check = request.json['password_check']
             try:
                 add_user(login=login, email=email, password=password)
             except AccountExists:
@@ -318,6 +314,8 @@ def display(form):
 
 
 
+# @app.route('/authorization/log_in', methods=["GET"])
+# def login():
 
 app.run(debug=True)
 
