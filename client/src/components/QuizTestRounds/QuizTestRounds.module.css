@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .QuizTestRounds {
     background-color: #6C8E2E;
     border-radius: 50%;
@@ -9,4 +10,17 @@
     text-align: center;
     font-size: 30px;
     margin: 0 1vh;
+=======
+.QuizTestRounds {
+    background-color: #6C8E2E;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    font-size: 30px;
+    margin: 0 1vh;
+>>>>>>> e7076219504e8160ea612f6d33d0aa7ef3418866
 }

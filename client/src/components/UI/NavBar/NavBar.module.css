@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import "../../../variables.css";
 
 .NavBar {
@@ -26,4 +27,34 @@
 
 .NavBar_LogIn_And_Register_button {
     margin: 0 10px;
+=======
+@import "../../../variables.css";
+
+.NavBar {
+    height: 80px;
+    background-color: var(--navBar_bg);
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.NavBar img {
+    padding: 0 5vw;
+    height: 70px;
+}
+
+.NavBar_LogIn_And_Register {
+    display: flex;
+    align-items: center;
+    background-color: var(--navBar_bg_settings)
+}
+
+.NavBar_LogIn_And_Register img {
+    /* width: 60px; */
+    /* height: 20%; */
+}
+
+.NavBar_LogIn_And_Register_button {
+    margin: 0 10px;
+>>>>>>> e7076219504e8160ea612f6d33d0aa7ef3418866
 }

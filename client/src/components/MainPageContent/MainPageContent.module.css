@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import "../../variables.css";
 
 .MainPageContent {
@@ -6,4 +7,14 @@
     width: 1200px;
     background: var(--mainContent_bg) no-repeat;
     
+=======
+@import "../../variables.css";
+
+.MainPageContent {
+    position: absolute;
+    height: 100%;
+    width: 1200px;
+    background: var(--mainContent_bg) no-repeat;
+    
+>>>>>>> e7076219504e8160ea612f6d33d0aa7ef3418866
 }

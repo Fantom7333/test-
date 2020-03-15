@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .Quiz_item {
     margin: 10vh 2vh 0;
     text-align: center;
@@ -24,4 +25,32 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+=======
+.Quiz_item {
+    margin: 10vh 2vh 0;
+    text-align: center;
+}
+
+.Quiz_item h6 {
+    text-decoration: none;
+    color: #fff;
+    margin-top: 2vh;
+}
+
+.Quiz h1 {
+    text-align: center;
+    margin-top: 5vh;
+    color: #fff;
+    text-align: center;
+}
+
+.Quiz {
+
+}
+
+.Quiz_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+>>>>>>> e7076219504e8160ea612f6d33d0aa7ef3418866
 }

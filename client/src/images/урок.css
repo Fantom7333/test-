@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .header {
 	position: fixed;
 	z-index: 1000;
@@ -42,4 +43,50 @@ td {
 
 td.aye{
 padding-top:2.5%;
+=======
+.header {
+	position: fixed;
+	z-index: 1000;
+	top: 150px;
+}
+
+.size {
+	width: 100vw;
+	margin-top: -10px;
+}
+
+.margin {
+    margin-left: 10%;
+}
+
+.div-background {
+background-color: #191a1e;
+}
+
+div {
+	width: 100vw;
+	height: 120vh;
+	margin-top: -10px;
+}
+
+
+.line {
+    border-left-color: #a8e13c;
+    border-left-style: solid;
+    border-left-width: 3px;
+}
+
+.TableText{
+	color: white;
+	font-family: Tahoma;
+}
+
+td {
+	font-family: Tahoma;
+}
+
+
+td.aye{
+padding-top:2.5%;
+>>>>>>> e7076219504e8160ea612f6d33d0aa7ef3418866
 }
