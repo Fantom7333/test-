@@ -1,0 +1,10 @@
+.QuizBlockOption {
+    width: 200px;
+    height: 25px;
+    background-color: blue;
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 1vh;
+}
