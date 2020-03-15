@@ -11,7 +11,15 @@ from flask_marshmallow import Marshmallow
 from str_functions import for_display
 from flask_cors import CORS
 
+
+
 app = Flask(__name__, template_folder="templates")
+app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'scidivecommunity@gmail.com'  # введите свой адрес электронной почты здесь
+app.config['MAIL_DEFAULT_SENDER'] = 'scidivecommunity@gmail.com'  # и здесь
+app.config['MAIL_PASSWORD'] = 'S17050405S1705040SolomonHardKey'  # введите пароль
 CORS(app)
 
 app.secret_key = "FIYGRFERBKCYBKEUYVCYECERUYBCRU"
@@ -172,14 +180,14 @@ def post(form):
             return jsonify({"error": False})
 
         elif form == "confirm_new_password":
-            email = session.get('email_new_confirm')
+            email = session.get('mail_confirm')
             if email:
                 code_valid = get_check_password(email)
-                code = request.json("code")
+                code = request.json["code"]
                 login = request_user_login(email)
                 old_password = request_user(login)[1]
                 print(old_password)
-                new_password = request.form['password']
+                new_password = request.json['password']
                 bool_hash = check_password_hash(old_password, new_password)
                 print(bool_hash)
                 if code_valid == code:
@@ -200,117 +208,7 @@ def post(form):
 
 @app.route('/authorization/<form>', methods=["GET"])
 def display(form):
-    if form == "log_in":
-        result = {}
-        fields_name = ["login", "password"]
-        fields_label = ["Логин", "Пароль"]
-        fields_types = ["text", "password"]
-        fields_min_lenght = ["6", "6"]
-        fields_max_lenght = ["15", "20"]
-        fields = list(zip(fields_name, fields_max_lenght, fields_types, fields_min_lenght, fields_max_lenght))
-        print(fields)
-        # Получаем список словарей с атрибутами полей.
-        result['fields'] = []
-        for i in fields:
-            fields_new = {}
-            fields_new['field_name'] = i[0]
-            fields_new['field_label'] = i[1]
-            fields_new['field_type'] = i[2]
-            fields_new['field_min_length'] = i[3]
-            fields_new['field_max_length'] = i[4]
-            result['fields'].append(fields_new)
-
-        result['fields'] = fields
-        result['submit_button'] = 'Войти'
-        result['bottom_label'] = "Нет аккаунта?"
-        result["bottom_url"] = "/authorization/sign_un"
-        result["bottom_button_value"] = "Зарегистрироваться"
-        result["additional_button"] = "Забыл пароль"
-        result["additional_url"] = "/authorization/forgot"
-        result["redirect"] = False
-        return jsonify(result)
-    elif form == "sign_up":
-        result = {}
-        fields_name = ["login", "email", "password", "password_сheck"]
-        fields_label = ["Логин", "Email", "Пароль", "Повторите пароль"]
-        fields_types = ["text", "email", "password", "password"]
-        fields_min_lenght = ["6", "6", "6", "6"]
-        fields_max_lenght = ["15", "25", "20", "20"]
-        fields = list(zip(fields_name, fields_label, fields_types, fields_min_lenght, fields_max_lenght))
-        #Получаем список словарей с атрибутами полей.
-        result['fields'] = []
-        for i in fields:
-            fields_new = {}
-            fields_new['field_name'] = i[0]
-            fields_new['field_label'] = i[1]
-            fields_new['field_type'] = i[2]
-            fields_new['field_min_length'] = i[3]
-            fields_new['field_max_length'] = i[4]
-            result['fields'].append(fields_new)
-
-        result['submit_button'] = 'Зарегистрироваться'
-        result['bottom_label'] = "Есть аккаунт?"
-        result["bottom_url"] = "/authorization/log_in"
-        result["bottom_button_value"] = "Войти"
-        result["additional_button"] = False
-        result["additional_url"] = False
-        result["redirect"] = False
-        return jsonify(result)
-
-    elif form == "forgot":
-        result = {}
-        fields_name = ["email"]
-        fields_label = ["Email"]
-        fields_types = ["email"]
-        fields_min_lenght = ["6"]
-        fields_max_lenght = ["25"]
-        fields = list(zip(fields_name, fields_label, fields_types, fields_min_lenght, fields_max_lenght))
-        # Получаем список словарей с атрибутами полей.
-        result['fields'] = []
-        for i in fields:
-            fields_new = {}
-            fields_new['field_name'] = i[0]
-            fields_new['field_label'] = i[1]
-            fields_new['field_type'] = i[2]
-            fields_new['field_min_length'] = i[3]
-            fields_new['field_max_length'] = i[4]
-            result['fields'].append(fields_new)
-        result['fields'] = fields
-        result['submit_button'] = "Отправить код"
-        result['bottom_label'] = False
-        result["bottom_url"] = False
-        result["bottom_button_value"] = False
-        result["additional_button"] = False
-        result["additional_url"] = False
-        result["redirect"] = False
-
-    elif form == "confirm_new_password":
-        result = {}
-        fields_name = ["email", "code"]
-        fields_label = ["email", "Код подтверждения"]
-        fields_types = ["email", "text"]
-        fields_min_lenght = ["6", "10"]
-        fields_max_lenght = ["25", "10"]
-        fields = zip(fields_name, fields_types, fields_min_lenght, fields_max_lenght)
-        # Получаем список словарей с атрибутами полей.
-        result['fields'] = []
-        for i in fields:
-            fields_new = {}
-            fields_new['field_name'] = i[0]
-            fields_new['field_label'] = i[1]
-            fields_new['field_type'] = i[2]
-            fields_new['field_min_length'] = i[3]
-            fields_new['field_max_length'] = i[4]
-            result['fields'].append(fields_new)
-
-        result['fields'] = fields
-        result['submit_button'] = "Сменить пароль"
-        result['bottom_label'] = False
-        result["bottom_url"] = False
-        result["bottom_button_value"] = False
-        result["additional_button"] = False
-        result["additional_url"] = False
-        result["redirect"] = False
+    pass
 
 
 
