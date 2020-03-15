@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Главная Страница (название сайта)</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Главная страница.css') }}">
+</head>
+<body>
+<header class="first-div">
+<table border="0" cellspacing="0" class="size">
+<tr align="center">
+    <td width="15%" align="left" bgcolor="a8e13c"><p class="margin"><a href="/"><img width="100" height="100" src="{{ url_for('static', filename='logotip.png') }}" alt="логотип страницы"></a></p></td>
+    <td width="15%" bgcolor="a8e13c">&nbsp;</td>
+    <td width="55%" class="aye" align="left" bgcolor="a8e13c"><p><img width="500" height="110" src="{{ url_for('static', filename='HorBlock.png') }}" alt="настройки"  align="center"></p></td>
+<td width="25%" bgcolor="575757"><img src="{{ url_for('static', filename = path) }}" alt="настройки" width="40%" align="center">
+<form method="POST">
+    <br/>
+    <input name = "Выйти" type="submit" value="выход">
+</form>
+</td>
+</tr>
+<tr align="center">
+<td bgcolor="a8e13c">&nbsp;</td>
+<td bgcolor="a8e13c">&nbsp;</td>
+    <td bgcolor="a8e13c" >&nbsp;</td>
+<td bgcolor="575757">&nbsp;</td>
+</tr>
+</table>
+</header>
+
+<div class="div-background" id="pad" class="margin" id="margin">
+<br/>
+<br/>
+<br/>
+<br/>
+<h2><u><font color="white">Наши курсы:</font></u></h2>
+<br/>
+<br/>
+<table align="center" border="0" cellspacing="5" width="70%">
+<col width="500">
+<tr align="center" valign="middle">
+    <td width="33%"><a href="/courses/Python"><img src="{{ url_for('static', filename='kurs.png') }}" alt="курс" width="60%"  class="radius" class="mouse"></a></td>
+<td width="33%"><img src="{{ url_for('static', filename='kurs.png') }}" alt="курс" width="60%" class="radius" class="mouse"></td>
+<td><img src="{{ url_for('static', filename='kurs.png') }}" alt="курс" width="60%" class="radius" class="mouse"></td>
+</tr>
+</table>
+<br/>
+<br/>
+<br/>
+<br/>
+</div>
+<table cellspacing="0" class="size">
+<tr>
+<td bgcolor="575757" width="33%" valign="middle" align="center">
+<a href="#"><img src="{{ url_for('static', filename='вк.png') }}" alt="вк" width="14%"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#"><img src="{{ url_for('static', filename='твит.png') }}" alt="твит" width="10%"></a>&nbsp;&nbsp;&nbsp;
+<a href="#"><img src="{{ url_for('static', filename='инста.png') }}" alt="инста" width="10%"></a>
+</td>
+<td bgcolor="a8e13c"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></td>
+</tr>
+</table>
+</body>
+</html>

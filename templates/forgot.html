@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forgot password</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='ФормаРегистрации.css') }}">
+</head>
+<body bgcolor="000000">
+<table border="0" align="center">
+    <tr>
+        <td width="33%">&nbsp;</td>
+        <td width="33%">
+            <div align="center" class="block">
+                <br/>
+                <br/>
+                <br/>
+                <form method="POST">
+                    <label for="email">Type your email here:</label>
+                    <input id = "email" name="email" type="text" minlenght="6" maxlength="30">
+                    <br>
+                    <input class='color' name="send_code" type="submit" value="Отправить код">
+                </form>
+                <br/>
+                <font>Есть аккаунт?<a href="/authorization/вход"> ВОЙТИ </a></font>
+                <br/>
+                {% if error %}
+                <font color="red">Вы ввели неверный email адресс</font>
+                {% endif %}
+            </div>
+        </td>
+        <td width="33%">&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>
+

@@ -142,6 +142,7 @@ def add_user(login, email, password):
         session.close()
 
 def request_user(login):
+<<<<<<< HEAD
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)
     user = session.query(User).filter_by(login=login).first()
@@ -162,6 +163,20 @@ def request_user_obj(login):
 def request_user_login(email):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
     session = Session(bind=engine)
+=======
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+    user = session.query(User).filter_by(login=login).first()
+    session.close()
+    if not user:
+        raise AccountNotFound
+    return user.login, user.password
+
+
+def request_user_login(email):
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+>>>>>>> 30a3713f197236de4dc99df5753f7541ece8062d
     user = session.query(User).filter_by(email=email).first()
     session.close()
     if not user:
@@ -333,6 +348,91 @@ def get_parts_of_class(course, section, class_name):
 
 #Добавление данных в таблицу с курсами
 
+<<<<<<< HEAD
+
+def set_course(course, avatar=None):
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+    course= to_camel_case(course)
+    if avatar:
+        course_new = Courses(course_name=course, avatar=avatar)
+    else:
+        course_new = Courses(course_name=course)
+    try:
+        session.add(course_new)
+        session.commit()
+    except IntegrityError:
+        raise CourseExist
+    session.close()
+
+def set_sections(course, section, avatar=None):
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+    #Информация о наличии пробелов в названии курса не нужна, тк создём секцию. Далее так же в других функциях.
+    course = to_camel_case(course)
+    section = to_camel_case(section)
+    course = session.query(Courses).filter_by(course_name=course).first()
+    try:
+        sections = course.course_sections
+    except AttributeError:
+        raise CourseNotFound
+    if avatar:
+        section_new = CourseSection(section_name=section, avatar=avatar)
+    else:
+        section_new = CourseSection(section_name=section)
+    try:
+        sections.append(section_new)
+        session.commit()
+    except IntegrityError:
+        raise SectionExist
+    session.close()
+
+
+
+
+
+def set_class(section, class_name, avatar=None):
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+    section = to_camel_case(section)
+    class_name = to_camel_case(class_name)
+    section = session.query(CourseSection).filter_by(section_name=section).first()
+    try:
+        classes = section.classes
+    except AttributeError:
+        raise SectionNotFound
+    if avatar:
+        class_new = SectionClasses(class_name=class_name, avatar=avatar)
+    else:
+        class_new = SectionClasses(class_name=class_name)
+    try:
+        classes.append(class_new)
+        session.commit()
+    except IntegrityError:
+        raise ClassExist
+    session.close()
+
+def set_part_of_class(class_name, info, valid_id=0, test=False):
+    engine = create_engine('sqlite:///info_data_base.db', echo=True)
+    session = Session(bind=engine)
+    class_name = to_camel_case(class_name)
+    class_act = session.query(SectionClasses).filter_by(class_name=class_name).first()
+    try:
+        parts = class_act.parts
+    except AttributeError:
+        raise ClassNotFound
+    if test:
+        part_new = PartOfClass(info=info, test=test, valid_id=valid_id)
+    elif not test:
+        part_new = PartOfClass(info=info)
+    try:
+        parts.append(part_new)
+        session.commit()
+    except IntegrityError:
+        raise PartOfClassExist
+    session.close()
+=======
+>>>>>>> 30a3713f197236de4dc99df5753f7541ece8062d
 
 def set_course(course, avatar=None):
     engine = create_engine('sqlite:///info_data_base.db', echo=True)
@@ -416,10 +516,10 @@ def set_part_of_class(class_name, info, valid_id=0, test=False):
         raise PartOfClassExist
     session.close()
 
-
 # get_sections("Python")
 # get_parts_of_class("Python", "ВведениеВPython3", 'Объекты')
 
+<<<<<<< HEAD
 # Для теста. Раскоменчивать и запускать после удаления БД.
 # set_course("Python")
 # set_sections("Python", "Введение В Python3")
@@ -441,3 +541,24 @@ def set_part_of_class(class_name, info, valid_id=0, test=False):
 # set_part_of_class("Атрибуты", "Атрибуты - именованные свойства объекта")
 
 # add_user("AYE88", 'sss@mail.ru', "2281337")
+=======
+# get_sections("Python")
+# get_parts_of_class("Python", "ВведениеВPython3", 'Объекты')
+
+# Для теста. Раскоменчивать и запускать после удаления БД.
+# set_course("Python")
+# set_sections("Python", "Введение В Python3")
+# set_sections("Python", "ООП")
+# set_class("Введение В Python3", "Объекты")
+# set_class("Введение В Python3", "Типы данных")
+# set_class("ООП", "Введение в ООП")
+# set_class("ООП", "Атрибуты")
+# set_part_of_class("Объекты", "Элментарная единица информации: Объект, Кластер, Переменная", test = True, valid_id=1)
+# set_part_of_class("Объекты", "Объекты в ЯП прикрепляются к переменным-ссылкам")
+# set_part_of_class("Типы данных", "Разновидности типов данных")
+# set_part_of_class("Типы данных", "String, float, int...")
+# set_part_of_class("Введение в ООП", "3 главных понятия: Наследование, Инкапсуляция, Полиморфизм")
+# set_part_of_class("Введение в ООП", "Полиморфизм - изменение свойств родительского класса в дочернем")
+# set_part_of_class("Атрибуты", "Выберите вариант ответа: Переменная, Класс, Список", test = True, valid_id=3)
+# set_part_of_class("Атрибуты", "Атрибуты - именованные свойства объекта")
+>>>>>>> 30a3713f197236de4dc99df5753f7541ece8062d
